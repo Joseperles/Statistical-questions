@@ -9,6 +9,7 @@ class(crime)
 
 #Fixed effect with time dummies
 baltagi<-lcrmrte~lprbarr+lprbconv+lprbpris+lpolpc+ldensity+lwtuc+lwmfg+lpctmin+west+central+urban+d82+d83+d84+d85+d86+d87
+baltagi2<-lcrmrte~lprbarr+lprbconv+lprbpris+lpolpc+ldensity+lwtuc+lwmfg+lpctmin+west+central+urban
 baltagi.fe<-plm(baltagi, data=crime , model="within")
 summary(baltagi.fe)   #Baltagi column 2 table 2 page 6
 summary(fixef(baltagi.fe))
@@ -136,3 +137,8 @@ sr87<-(summary(r87)$r.squared)*(summary(r87)$df[2])
 
 Statistics<-sr81+sr82+sr83+sr84+sr85+sr86+sr87
 Statistics
+
+#angrist Newey tst con plm
+
+aneweytest(baltagi, data=crime, index = "county" )
+aneweytest(baltagi2, data=crime, index = "county" )
